@@ -1,24 +1,16 @@
-var gulp = require('gulp'),
-	clean = require('gulp-clean'),
-	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify'),
-	jsFiles = [
-		'app/bower_components/angular/angular.min.js',
-		'app/bower_components/angular-animate/angular-animate.min.js',
-		'app/bower_components/angular-aria/angular-aria.min.js',
-		'app/bower_components/angular-material/angular-material.min.js'
-	];
+var elixir = require('laravel-elixir');
 
-gulp.task('default', ['clean', 'copyjs'], function() {
-  // place code for your default task here
-});
+/*
+ |--------------------------------------------------------------------------
+ | Elixir Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | for your Laravel application. By default, we are compiling the Less
+ | file for our application, as well as publishing vendor resources.
+ |
+ */
 
-gulp.task('clean', function() {
-	return gulp.src('build', { read: false } ).pipe(clean());
-});
-
-gulp.task('copyjs', function() {
-	return gulp.src(jsFiles)
-		.pipe(concat('build.js'))
-		.pipe(gulp.dest('build/js'));
+elixir(function(mix) {
+    mix.less('app.less');
 });
