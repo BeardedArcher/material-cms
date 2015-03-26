@@ -11,19 +11,22 @@ var gulp = require('gulp'),
 		'app/assets/**/*.css'
 	],
 	jsFiles = [
+		'app/bower_components/jquery/dist/jquery.min.js',
 		'app/bower_components/angular/angular.min.js',
 		'app/bower_components/angular-animate/angular-animate.min.js',
 		'app/bower_components/angular-aria/angular-aria.min.js',
 		'app/bower_components/angular-material/angular-material.min.js',
 		'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'node_modules/restangular/node_modules/lodash/dist/lodash.min.js',
+		'node_modules/restangular/dist/restangular.min.js',
 		'app/app.js',
 		'app/src/**/*.js'
 	],
 	otherFiles = [
 		'app/index.html',
 		'app/index.php',
-		'favicon.ico',
-		'robots.txt'
+		'app/favicon.ico',
+		'app/robots.txt'
 	];
 
 gulp.task('default', ['clean', 'copyjs', 'copyotherFiles', 'cssminify', 'htaccess'], function() {

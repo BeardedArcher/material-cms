@@ -23,5 +23,8 @@
   "scripts": {
     "postinstall": "bower update",
     "prestart": "npm update"
+  },
+  "dependencies": {
+    "restangular": "^1.4.0"
   }
 }

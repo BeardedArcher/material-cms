@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::controllers(array(
+	'/templates/admin/auth' => 'Admin\Auth'
+));
