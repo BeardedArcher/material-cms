@@ -22,5 +22,4 @@ angular.module('material-cms', [
 })
 
 .controller('AppCtrl', function() {
-
 });

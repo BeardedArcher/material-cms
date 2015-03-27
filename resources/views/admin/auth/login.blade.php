@@ -1,8 +1,8 @@
-<form ng-submit="login()">
-	<md-content md-theme="docs-dark" class="md-padding" layout="row" layout-sm="column">
+<form ng-submit="login()" layout="column" flex="30">
+	<md-content md-theme="docs-dark" class="md-padding" layout="column" layout-align="center center">
 		<md-input-container>
 			<label>Email</label>
-			<input ng-model="user.email" type="email">
+			<input ng-model="user.email" type="text">
 		</md-input-container>
 		<md-input-container>
 			<label>Password</label>
@@ -10,7 +10,7 @@
 		</md-input-container>
 	</md-content>
 
-	<section layout="row" layout-sm="column">
+	<section layout="column" layout-align="center center">
 		<md-button class="md-raised">Submit</md-button>
 	</section>
 </form>

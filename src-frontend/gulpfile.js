@@ -3,6 +3,38 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	cssMinify = require('gulp-minify-css'),
+	watch = require('gulp-watch'),
+	install = require('gulp-install'),
+	livereload = require('gulp-livereload'),
+	tasks = { 
+		copyjs: function() {
+			return gulp.src(jsFiles)
+				.pipe(concat('build.js'))
+				.pipe(gulp.dest(build_dir + '/js'))
+				.pipe(livereload());
+		},
+		clean: function() {
+			return gulp.src('build', { read: false } ).pipe(clean());
+		},
+		copyOtherFiles: function() {
+			return gulp.src(otherFiles)
+				.pipe(gulp.dest(build_dir))
+				.pipe(livereload());
+		},
+		cssminify: function() {
+			return gulp.src(cssFiles)
+				.pipe(cssMinify())
+				.pipe(concat('style.css'))
+				.pipe(gulp.dest(build_dir))
+				.pipe(livereload());
+		},
+		htaccess: function() {
+			return gulp.src('app/.htaccess')
+				.pipe(gulp.dest(build_dir))
+				.pipe(livereload());
+		}
+	},
+	
 
 	build_dir = '../public',
 	
@@ -33,29 +65,25 @@ gulp.task('default', ['clean', 'copyjs', 'copyotherFiles', 'cssminify', 'htacces
 
 });
 
-gulp.task('clean', function() {
-	return gulp.src('build', { read: false } ).pipe(clean());
+gulp.task('watch', ['install'], function() {
+	livereload({start: true});
+	livereload.listen();
+	watch(cssFiles, tasks.cssminify);
+	watch(jsFiles, tasks.copyjs);
+	watch(otherFiles, tasks.copyOtherFiles);
+	watch('app/.htaccess', tasks.htaccess);
 });
 
-gulp.task('copyjs', ['clean'], function() {
-	return gulp.src(jsFiles)
-		.pipe(concat('build.js'))
-		.pipe(gulp.dest(build_dir + '/js'));
+gulp.task('install', function() {
+	gulp.src(['./bower.json', './package.json']).pipe(install());
 });
 
-gulp.task('copyotherFiles', ['clean'], function() {
-	return gulp.src(otherFiles)
-		.pipe(gulp.dest(build_dir));
-});
+gulp.task('clean', tasks.clean);
 
-gulp.task('cssminify', ['clean'], function() {
-	return gulp.src(cssFiles)
-		.pipe(cssMinify())
-		.pipe(concat('style.css'))
-		.pipe(gulp.dest(build_dir));
-});
+gulp.task('copyjs', ['clean'], tasks.copyjs);
 
-gulp.task('htaccess', ['clean'], function() {
-	return gulp.src('app/.htaccess')
-		.pipe(gulp.dest(build_dir));
-})
+gulp.task('copyotherFiles', ['clean'], tasks.copyOtherFiles);
+
+gulp.task('cssminify', ['clean'], tasks.cssminify);
+
+gulp.task('htaccess', ['clean'], tasks.htaccess);
