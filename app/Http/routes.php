@@ -12,5 +12,6 @@
 */
 
 Route::controllers(array(
-	'/templates/admin/auth' => 'Admin\Templates\Auth'
+	'/templates/admin/auth' => 'Admin\Templates\Auth',
+	'/api/admin/auth' => 'Admin\Api\Auth'
 ));

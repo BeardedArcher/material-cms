@@ -6,7 +6,7 @@ angular.module('material-cms.login', ['ui.router', 'restangular'])
         views: {
             root: {
                 controller: 'MaterialCmsLoginCtrl',
-                templateUrl: 'templates/admin/auth/login'
+                templateUrl: 'templates/admin/auth/login' // tu jest sciezka pod ktora jest widok
             }
         },
         data: {
@@ -20,7 +20,7 @@ angular.module('material-cms.login', ['ui.router', 'restangular'])
 	
 	$scope.login = function() {
 		Restangular.one('api/admin/auth/').post('login', {
-			login: $scope.user.email,
+			email: $scope.user.email,
 			password: $scope.user.password
 		}).then(function(response) {
 			$mdToast.show($mdToast.simple()

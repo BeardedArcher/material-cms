@@ -18,7 +18,7 @@ angular.module('material-cms', [
 })
 
 .run(function(Restangular, $location) {
-	Restangular.setBaseUrl($location.host());
+//	Restangular.setBaseUrl($location.host());
 })
 
 .controller('AppCtrl', function() {

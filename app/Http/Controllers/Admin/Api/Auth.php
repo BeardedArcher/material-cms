@@ -1,28 +1,21 @@
-<?php
+<?php namespace App\Http\Controllers\Admin\Api;
+
+use \App\Http\Controllers\Controller;
+use \Input;
 
 class Auth extends Controller {
     
     public function postLogin()
     {
-        $input = Input::all();
+        $email = Input::get('email');
+        $password = Input::get('password');
         
-        $rules = array('email' => 'required', 'password' => 'required');
-        
-        $v = Validator::make($input, $rules);
-        
-        if($v->fails())
-        {
-            return Redirect::to('login')->withErrors($v);
-        } else {
-            $credentials = array('email' => $input['email'], 'password' => $input['password']);
-            
-            if(Auth::attempt($credentials))
-            {
-                return Redirect::to('admin');
-            } else {
-                return Redirect::to('login');
-            }
-        }
+       if(\Auth::attempt(['email' => $email, 'password' => $password]))
+       {
+           echo 'zalogowany';
+       } else {
+           echo 'bledne logowanie';
+       }
     }
     
     public function logout()
